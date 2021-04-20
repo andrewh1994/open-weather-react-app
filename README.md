@@ -1,5 +1,5 @@
 
-To run this proect, run:
+To run this project, run:
 
 ### `npm start`
 
