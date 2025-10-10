@@ -1,6 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Button } from '../components/Button';
 
 describe('Button', () => {
@@ -19,7 +21,7 @@ describe('Button', () => {
     render(<Button onClick={handleClick}>Click Me</Button>);
     
     const button = screen.getByText('Click Me');
-    fireEvent.click(button);
+    userEvent.click(button);
     
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -29,7 +31,7 @@ describe('Button', () => {
     render(<Button onClick={handleClick} disabled>Click Me</Button>);
     
     const button = screen.getByText('Click Me');
-    fireEvent.click(button);
+    userEvent.click(button);
     
     expect(handleClick).not.toHaveBeenCalled();
   });

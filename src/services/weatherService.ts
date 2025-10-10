@@ -1,6 +1,3 @@
-require('dotenv').config();
-const apiKey = process.env.REACT_APP_API_KEY;
-
 interface WeatherResponse {
   cod: number | string;
   main?: {
@@ -16,22 +13,23 @@ interface WeatherResult {
 
 export const getCityTemperature = async (city: string): Promise<WeatherResult> => {
   try {
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-    );
-
-    if (!response) return { error: true };
-
+    const response = await fetch(`http://localhost:3001/api/weather/${city}`);
+    
     const data: WeatherResponse = await response.json();
 
-    if (data.cod !== 404 && data.main) {
+    // Check if city was not found
+    if (data.cod === 404 || data.cod === '404' || !response.ok) {
+      console.log('Error, city not found');
+      return { error: true };
+    }
+
+    if (data.main) {
       return {
         cityName: city,
         temperature: data.main.temp,
         error: false,
       };
     } else {
-      console.log('Error, city not found');
       return { error: true };
     }
   } catch (err) {

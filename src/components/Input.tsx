@@ -30,7 +30,13 @@ export const Input: React.FC<InputProps> = ({
     onKeyDown={onKeyDown}
     autoFocus={autoFocus}
     disabled={disabled}
-    className={className}
+    className={`form-control ${className}`}
+    style={{ 
+      paddingLeft: '12px',
+      paddingRight: '12px',
+      paddingTop: '8px',
+      paddingBottom: '8px'
+    }}
     {...props}
   />
 );

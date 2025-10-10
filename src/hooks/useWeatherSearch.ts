@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getCityTemperature as fetchCityTemperature } from '../getCityTemperature';
+import { getCityTemperature as fetchCityTemperature } from '../services/weatherService';
 
 interface WeatherData {
   cityName: string;

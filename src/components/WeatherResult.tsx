@@ -18,22 +18,35 @@ export const WeatherResult: React.FC<WeatherResultProps> = ({
   if (isLoading) {
     return (
       <div className="row justify-content-center">
-        <p>Fetching weather data...</p>
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+        <p className="mt-2">Fetching weather data...</p>
       </div>
     );
   }
 
+  if (cityNotFound) {
+    return (
+      <div className="row justify-content-center">
+        <div className="alert alert-danger" role="alert" style={{ maxWidth: '400px' }}>
+          <strong>Error!</strong> {ERROR_MESSAGE}
+        </div>
+      </div>
+    );
+  }
+
+  if (!cityName && !cityTemperature) {
+    return null;
+  }
+
   return (
     <div className="row justify-content-center">
-      <p>
-        Here is the temperature in {cityName || TEMPERATURE_PLACEHOLDER}:{' '}
-        {formatTemperature(cityTemperature)}
-      </p>
-      {cityNotFound && (
-        <p className="text-danger">
-          {ERROR_MESSAGE}
+      <div className="alert alert-success" role="alert" style={{ maxWidth: '400px' }}>
+        <p className="mb-0">
+          <strong>Temperature in {cityName}:</strong> {formatTemperature(cityTemperature)}
         </p>
-      )}
+      </div>
     </div>
   );
 };

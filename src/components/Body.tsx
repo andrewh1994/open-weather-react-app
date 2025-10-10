@@ -22,16 +22,18 @@ export const Body: React.FC = () => {
   return (
     <div className="container">
       <div className="row justify-content-center mb-4">
-        <Input
-          type="text"
-          placeholder={PLACEHOLDER_TEXT}
-          value={textInput}
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
-          autoFocus
-          disabled={isLoading}
-          aria-label="City name input"
-        />
+        <div className="col-12 col-md-6 col-lg-4">
+          <Input
+            type="text"
+            placeholder={PLACEHOLDER_TEXT}
+            value={textInput}
+            onKeyDown={handleKeyDown}
+            onChange={handleChange}
+            autoFocus
+            disabled={isLoading}
+            aria-label="City name input"
+          />
+        </div>
       </div>
       <div className="row justify-content-center mb-4">
         <Button 
