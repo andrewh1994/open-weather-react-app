@@ -43,7 +43,7 @@ npm install --legacy-peer-deps
 ### 4. Run the Application
 
 ```bash
-npm run start:both
+npm run start
 ```
 
 **This command runs two servers concurrently:**
@@ -60,6 +60,7 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 2. Click the yellow button or press **Enter**
 3. The app will display:
    - Current temperature in Celsius
+   - 5-day weather forecast
    - City name
    - Error message if city is not found
 
@@ -67,8 +68,8 @@ Navigate to [http://localhost:3000](http://localhost:3000)
 
 | Command | Description |
 |---------|-------------|
-| `npm run start:both` | Run both backend and frontend servers concurrently |
-| `npm start` | Run frontend only (React app on port 3000) |
+| `npm start` | Run both backend and frontend servers concurrently |
+| `npm run start:client` | Run frontend only (React app on port 3000) |
 | `npm run start:server:dev` | Run backend only (Express server on port 3001) |
 | `npm test` | Run test suite |
 | `npm run build` | Build production-ready React app |

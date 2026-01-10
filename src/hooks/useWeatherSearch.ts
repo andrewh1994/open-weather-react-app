@@ -11,6 +11,7 @@ interface WeatherData {
     tempMin: number;
     tempMax: number;
     description: string;
+    icon: string;
   }>;
 }
 

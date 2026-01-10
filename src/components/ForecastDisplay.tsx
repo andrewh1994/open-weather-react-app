@@ -6,6 +6,7 @@ interface ForecastDay {
   tempMin: number;
   tempMax: number;
   description: string;
+  icon: string;
 }
 
 interface FiveDayForecastDisplayProps {
@@ -17,6 +18,10 @@ export const FiveDayForecastDisplay: React.FC<FiveDayForecastDisplayProps> = ({ 
     return null;
   }
 
+  const getWeatherIcon = (iconCode: string): string => {
+    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  };
+
   return (
     <div className="row justify-content-center mt-4">
       <div className="col-12 col-lg-10">
@@ -27,6 +32,11 @@ export const FiveDayForecastDisplay: React.FC<FiveDayForecastDisplayProps> = ({ 
               <div className="card h-100">
                 <div className="card-body text-center">
                   <h6 className="card-title">{day.date}</h6>
+                  <img 
+                    src={getWeatherIcon(day.icon)} 
+                    alt={day.description}
+                    style={{ width: '80px', height: '80px' }}
+                  />
                   <p className="card-text mb-1">
                     <strong>{day.temp}°C</strong>
                   </p>

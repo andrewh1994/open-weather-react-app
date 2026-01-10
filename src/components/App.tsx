@@ -1,9 +1,9 @@
-import { Header } from './Header'
 import { Body } from './Body'
+import { Navbar } from './Navbar'
 import './../index.css'
 
 export const App = () =>
 <div>
-    <Header />
+    <Navbar />
     <Body />
 </div>

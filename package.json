@@ -19,10 +19,11 @@
     "web-vitals": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run start:server:dev\" \"npm run start:client\"",
+    "start:client": "react-scripts start",
     "start:server": "ts-node --project tsconfig.server.json server.ts",
     "start:server:dev": "nodemon --watch server.ts --exec ts-node --project tsconfig.server.json server.ts",
-    "start:both": "concurrently \"npm run start:server:dev\" \"npm start\"",
+    "start:both": "concurrently \"npm run start:server:dev\" \"npm run start:client\"",
     "build": "react-scripts build",
     "build:server": "tsc --project tsconfig.server.json",
     "test": "react-scripts test",

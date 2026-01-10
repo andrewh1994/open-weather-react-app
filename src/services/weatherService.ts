@@ -37,6 +37,7 @@ interface ForecastResult {
     tempMin: number;
     tempMax: number;
     description: string;
+    icon: string;
   }>;
   error: boolean;
 }
@@ -91,6 +92,7 @@ export const getCityForecast = async (city: string): Promise<ForecastResult> => 
         tempMin: Math.round(item.main.temp_min),
         tempMax: Math.round(item.main.temp_max),
         description: item.weather[0].description,
+        icon: item.weather[0].icon,
       }));
 
     return {
