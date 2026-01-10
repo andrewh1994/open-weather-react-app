@@ -1,10 +1,17 @@
 import { useState } from 'react';
-import { getCityTemperature as fetchCityTemperature } from '../services/weatherService';
+import { getCityTemperature as fetchCityTemperature, getCityForecast } from '../services/weatherService';
 
 interface WeatherData {
   cityName: string;
   temperature: number | null;
   notFound: boolean;
+  forecast: Array<{
+    date: string;
+    temp: number;
+    tempMin: number;
+    tempMax: number;
+    description: string;
+  }>;
 }
 
 interface UseWeatherSearchReturn {
@@ -22,6 +29,7 @@ export const useWeatherSearch = (): UseWeatherSearchReturn => {
     cityName: '',
     temperature: null,
     notFound: false,
+    forecast: [],
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -40,19 +48,24 @@ export const useWeatherSearch = (): UseWeatherSearchReturn => {
     setIsLoading(true);
 
     try {
-      const result = await fetchCityTemperature(textInput);
+      const [currentResult, forecastResult] = await Promise.all([
+        fetchCityTemperature(textInput),
+        getCityForecast(textInput),
+      ]);
 
-      if (!result.error && result.temperature !== undefined) {
+      if (!currentResult.error && currentResult.temperature !== undefined) {
         setWeatherData({
-          cityName: result.cityName || '',
-          temperature: result.temperature,
+          cityName: currentResult.cityName || '',
+          temperature: currentResult.temperature,
           notFound: false,
+          forecast: forecastResult.error ? [] : forecastResult.forecast,
         });
       } else {
         setWeatherData({
           cityName: '',
           temperature: null,
           notFound: true,
+          forecast: [],
         });
       }
     } catch (error) {
@@ -61,6 +74,7 @@ export const useWeatherSearch = (): UseWeatherSearchReturn => {
         cityName: '',
         temperature: null,
         notFound: true,
+        forecast: [],
       });
     } finally {
       setIsLoading(false);

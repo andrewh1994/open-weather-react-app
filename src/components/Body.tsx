@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from './Button';
 import { Input } from './Input';
 import { WeatherResult } from './WeatherResult';
+import { FiveDayForecastDisplay } from './ForecastDisplay';
 import { useWeatherSearch } from '../hooks/useWeatherSearch';
 import { 
   PLACEHOLDER_TEXT, 
@@ -49,6 +50,7 @@ export const Body: React.FC = () => {
         cityNotFound={weatherData.notFound}
         isLoading={isLoading}
       />
+      <FiveDayForecastDisplay forecast={weatherData.forecast} />
     </div>
   );
 };

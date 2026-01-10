@@ -63,6 +63,42 @@ app.get('/api/weather/:city', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/api/forecast/:city', async (req: Request, res: Response) => {
+  const { city } = req.params;
+
+  if (!API_KEY) {
+    return res.status(500).json({ error: 'API key not configured' });
+  }
+
+  try {
+    const response = await axios.get(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`
+    );
+    res.json(response.data);
+  } catch (error: any) {
+    console.error('Failed to fetch forecast data:', error.message);
+    
+    if (error.response) {
+      if (error.response.status === 404) {
+        return res.status(404).json({ 
+          cod: '404',
+          error: 'City not found' 
+        });
+      }
+      
+      return res.status(error.response.status).json({
+        cod: error.response.status.toString(),
+        error: 'Failed to fetch forecast data'
+      });
+    }
+    
+    res.status(500).json({
+      cod: '500',
+      error: 'Failed to fetch forecast data'
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
